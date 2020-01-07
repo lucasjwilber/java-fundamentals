@@ -7,22 +7,23 @@ public class Main {
     return (number > 1 || number == 0) ? word + "s" : word;
   }
 
+
   public static void flipNHeads (int n) {
     int heads = 0;
     int count = 0;
     while (heads < n) {
+      count++;
       if (Math.random() >= 0.5) {
         heads++;
         System.out.println("heads");
       } else {
+        heads = 0;
         System.out.println("tails");
       }
-      count++;
     }
+
     System.out.println("It took " + count +" flips to flip " + n + " head(s) in a row.");
   }
-
-  // Write a method clock that uses Java’s built-in LocalDateTime object to constantly print out the current time to the console, second by second. The program should run until someone manually kills it with CTRL-C or presses the “stop” button in their IDE. Each time should only be printed once. Your program should detect when the seconds increase and only print something out when the timestamp changes.
 
   public static void clock() {
     String previousTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
