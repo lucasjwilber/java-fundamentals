@@ -12,6 +12,10 @@ public class Library {
     }
 
     public static int[] roll(int rolls) {
+        if (rolls < 1) {
+            System.out.println("Enter a positive integer");
+            //need to somehow terminate early here without returning an int[]?
+        }
         int[] rollsArr = new int[rolls];
         for (int i = 0; i < rollsArr.length; i++) {
             rollsArr[i] = (int) Math.ceil(Math.random() * 6);
