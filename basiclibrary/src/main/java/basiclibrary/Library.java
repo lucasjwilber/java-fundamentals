@@ -38,7 +38,7 @@ public class Library {
     public static float calculatesAverages(int[] arr) {
         float average = 0;
         float arrLength = arr.length;
-        for (int num : arr) {
+        for (float num : arr) {
             average += num / arrLength;
         }
         return average;
@@ -70,9 +70,9 @@ public class Library {
 
         //average calc
         int[] avgArr1 = {1, 2, 3, 2, 4, 5};
-        int[] avgArr2 = {1, 5, 7, 3};
+        int[] avgArr2 = {1, 23, 55, 4, 5};
         System.out.println(calculatesAverages(avgArr1));
-        System.out.println(calculatesAverages(avgArr2));
+        System.out.println("avg" + calculatesAverages(avgArr2));
 
         //lowestAverage
         int[][] weeklyMonthTemperatures = {

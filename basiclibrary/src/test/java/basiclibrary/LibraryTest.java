@@ -5,22 +5,59 @@ package basiclibrary;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import java.lang.Float;
 
 public class LibraryTest {
-    @Test public void testSomeLibraryMethod() {
+
+    public static boolean checkRollRange() {
         Library classUnderTest = new Library();
-        assertTrue("someLibraryMethod should return 'true'", classUnderTest.someLibraryMethod());
+        int[] rollArr = classUnderTest.roll(50);
+        boolean numbersAreAllInRange = true;
+        for (int num : rollArr) {
+            if (num > 6 || num < 1)
+                numbersAreAllInRange = false;
+        }
+        return numbersAreAllInRange;
     }
+
+
     @Test public void testRoll() {
         Library classUnderTest = new Library();
-        assertTrue("roll() values should only be 1-6", (int[] testArray = classUnderTest.roll(25);
-            boolean result = false;
-            for (int num : testArray) {
-                if (num < 1 || num > 6)
-                    result = false;
-            }
-            return result;
-            ));
+        //Happy path:
+        assertTrue("roll() values should only be 1-6", checkRollRange());
+        //Expected failure:
+        assertFalse("roll() should return an array", (!classUnderTest.roll(20).getClass().isArray()));
 
     }
+    @Test public void testContainsDuplicates() {
+        Library classUnderTest = new Library();
+        int[] testArray = {1, 2, 3, 2, 5};
+        //Happy path:
+        assertTrue("{1, 2, 3, 2, 5} should return 'true'", classUnderTest.containsDuplicates(testArray));
+        //Expected failure:
+        assertFalse("{1, 2, 3} should not return true", classUnderTest.containsDuplicates(new int[] {1, 2, 3}));
+    }
+    @Test public void testCalculatesAverages() {
+        Library classUnderTest = new Library();
+        int[] testArray = {1, 23, 55, 4, 5};
+        float averageOfTestArray = (float) ((1 + 23 + 55 + 4 + 5) / 5.0);
+        //Happy path:
+        assertTrue("{1, 23, 55, 4, 5} should return float ~17.6", (Math.abs(classUnderTest.calculatesAverages(testArray) - averageOfTestArray) < 0.1));
+        //Expected failure:
+        assertFalse("calculatesAverages() should not return an int", (classUnderTest.calculatesAverages(testArray) == (int) classUnderTest.calculatesAverages(testArray)));
+    }
+    @Test public void testArrayWithLowestAverage() {
+        Library classUnderTest = new Library();
+        int[][] weeklyMonthTemperatures = {
+                {66, 64, 58, 65, 71, 57, 60},
+                {57, 65, 65, 70, 72, 65, 51},
+                {55, 54, 60, 53, 59, 57, 61},
+                {65, 56, 55, 52, 55, 62, 57}
+        };
+        //Happy path:
+        assertTrue("the third array in weeklyMonthTemperatures has the lowest average", (classUnderTest.arrayWithLowestAvg(weeklyMonthTemperatures) == weeklyMonthTemperatures[2]));
+        //Expected failure:
+        assertFalse("arrayWithLowestAvg() should not return the average number, just an array", (!classUnderTest.arrayWithLowestAvg(weeklyMonthTemperatures).getClass().isArray()));
+    }
+
 }
