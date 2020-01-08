@@ -1,4 +1,4 @@
-import java.text.DecimalFormat;
+import java.util.Random;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -11,9 +11,12 @@ public class Main {
   public static void flipNHeads (int n) {
     int heads = 0;
     int count = 0;
+    Random randomNums = new Random();
     while (heads < n) {
       count++;
       if (Math.random() >= 0.5) {
+        //idk how to get this to yield a 1 digit number:
+        // if (randomNums.nextInt() > 4) {
         heads++;
         System.out.println("heads");
       } else {
