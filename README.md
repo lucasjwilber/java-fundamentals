@@ -35,4 +35,23 @@ Used for the first several java-401d7 labs.
   -returns the array with the lowest average value
 
 
+##linter:
+
+  ##mapTemperatures(**int[][]**)
+    -creates a hashSet of the given matrix of temperature data
+    -converts the hashSet to an arrayList to then sort it
+    -checks for any missing temperatures within the given range
+    -returns a string for each missing temperature
+
+  ##tally(**List<String>**)
+    -accepts a list of strings
+    -creates a hashMap with the string as the key and the number of occurrences as the value
+    -returns which string had the most occurences
+
+  ##linter(**file path string**)
+    -scans the inputted file
+    -checks each line for missing semi-colons
+    -returns a string of each line with a missing semi-colon
+
+
 

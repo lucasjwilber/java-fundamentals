@@ -3,23 +3,16 @@
  */
 package basiclibrary;
 
-//import java.util.Arrays;
 import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 
 
 public class Library {
-
-    public boolean someLibraryMethod() {
-        return true;
-    }
 
     public static int[] roll(int rolls) {
         if (rolls < 1) {
@@ -105,7 +98,6 @@ public class Library {
         for (String name : votesList) {
             voteMap.putIfAbsent(name, 0);
             voteMap.put(name, voteMap.get(name) + 1);
-
             if (voteMap.get(name) > mostVotes) {
                 mostVotes = voteMap.get(name);
                 voteLeader = name;
@@ -114,45 +106,8 @@ public class Library {
         return voteLeader + " is the winner, with " + mostVotes + " votes.";
     }
 
-    public static String linter(String location) {
-        Path path = Paths.get(location);
-
-        Scanner linterScanner;
-        {
-            try {
-                linterScanner = new Scanner(path);
-                int lineNumber = 1;
-                StringBuilder results = new StringBuilder();
-
-                while (linterScanner.hasNextLine()) {
-                    String line = linterScanner.nextLine();
-                    if (line.lastIndexOf(";") != line.length() - 1 &&
-                            line.indexOf("{") != line.length() - 1 &&
-                            line.indexOf("}") != 0 &&
-                    !line.contains("if") && !line.contains("else"))
-                    {
-                        results.append("Line " + lineNumber + " is missing a semi-colon:\n" + line + "\n");
-                    }
-                    lineNumber++;
-                }
-                return results.toString();
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                System.out.println("file not found");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return "error";
-    }
-
-
-
-
-
+    
     public static void main (String[] args) {
-        System.out.println(linter("./src/main/resources/gates.js"));
-        System.out.println(linter("./src/test/resources/linterTest_few.js"));
+        System.out.println("hi");
     }
 }
