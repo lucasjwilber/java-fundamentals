@@ -5,6 +5,7 @@ package basiclibrary;
 
 //import java.util.Arrays;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -113,26 +114,28 @@ public class Library {
         return voteLeader + " is the winner, with " + mostVotes + " votes.";
     }
 
-    public static void linter() {
+    public static String linter(String location) {
+        Path path = Paths.get(location);
+
         Scanner linterScanner;
         {
             try {
-                Path source = Paths.get("./src/main/resources/gates.js");
-                linterScanner = new Scanner(source);
+                linterScanner = new Scanner(path);
                 int lineNumber = 1;
+                StringBuilder results = new StringBuilder();
 
                 while (linterScanner.hasNextLine()) {
                     String line = linterScanner.nextLine();
-
                     if (line.lastIndexOf(";") != line.length() - 1 &&
                             line.indexOf("{") != line.length() - 1 &&
+                            line.indexOf("}") != 0 &&
                     !line.contains("if") && !line.contains("else"))
                     {
-                        System.out.println("Line " + lineNumber + " is missing a semi-colon:");
-                        System.out.println(line);
+                        results.append("Line " + lineNumber + " is missing a semi-colon:\n" + line + "\n");
                     }
                     lineNumber++;
                 }
+                return results.toString();
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -141,6 +144,7 @@ public class Library {
                 e.printStackTrace();
             }
         }
+        return "error";
     }
 
 
@@ -148,13 +152,7 @@ public class Library {
 
 
     public static void main (String[] args) {
-
-//);
-
-//
-//        System.out.println(tally(votes));
-//
-//        linter();
-
+        System.out.println(linter("./src/main/resources/gates.js"));
+        System.out.println(linter("./src/test/resources/linterTest_few.js"));
     }
 }
