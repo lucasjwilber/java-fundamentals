@@ -3,18 +3,22 @@
  */
 package basiclibrary;
 
-import java.util.Arrays;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+
 
 public class Library {
-
-    public boolean someLibraryMethod() {
-        return true;
-    }
 
     public static int[] roll(int rolls) {
         if (rolls < 1) {
             System.out.println("Enter a positive integer");
-            //need to somehow terminate early here without returning an int[]?
+            //implement try/catch or manually throw an exception here:
+            return null;
         }
         int[] rollsArr = new int[rolls];
         for (int i = 0; i < rollsArr.length; i++) {
@@ -61,34 +65,49 @@ public class Library {
         return lowestAvg;
     }
 
-
-    public static void main (String[] args) {
-        //dice rolls
-        System.out.println(Arrays.toString(roll(10)));
-
-        //duplicates
-        int[] duplicatesArr = {1, 2, 3, 2, 4, 5};
-        int[] noDuplicatesArr = {1, 5, 7, 3};
-        System.out.println(containsDuplicates(duplicatesArr));
-        System.out.println(containsDuplicates(noDuplicatesArr));
-
-        //average calc
-        int[] avgArr1 = {1, 2, 3, 2, 4, 5};
-        int[] avgArr2 = {1, 23, 55, 4, 5};
-        System.out.println(calculatesAverages(avgArr1));
-        System.out.println("avg" + calculatesAverages(avgArr2));
-
-        //lowestAverage
-        int[][] weeklyMonthTemperatures = {
-                {66, 64, 58, 65, 71, 57, 60},
-                {57, 65, 65, 70, 72, 65, 51},
-                {55, 54, 60, 53, 59, 57, 61},
-                {65, 56, 55, 52, 55, 62, 57}
-        };
-        for (int[] arr : weeklyMonthTemperatures) {
-            System.out.println(calculatesAverages(arr));
+    public static String mapTemperatures(int[][] weatherData) {
+        Set<Integer> weatherSet = new HashSet<>();
+        for (int[] week : weatherData) {
+            for (int day : week) {
+                weatherSet.add(day);
+            }
         }
-        System.out.println(Arrays.toString(arrayWithLowestAvg(weeklyMonthTemperatures)));
+        //convert hashset to arraylist so we can sort it
+        List<Integer> sortedWeather = new ArrayList<>();
+        sortedWeather.addAll(weatherSet);
+        Collections.sort(sortedWeather);
 
+        int lowestTemp = sortedWeather.get(0);
+        int highestTemp = sortedWeather.get(sortedWeather.size() - 1);
+
+        StringBuilder result = new StringBuilder();
+        for (int i = lowestTemp; i < highestTemp; i++) {
+            if (!sortedWeather.contains(i)) {
+                result.append(String.format("Never saw temperature %d.\n", i));
+            }
+        }
+        return result.toString();
+    }
+
+    public static String tally(List<String> votesList) {
+        HashMap<String, Integer> voteMap = new HashMap<>();
+
+        int mostVotes = 0;
+        String voteLeader = null;
+
+        for (String name : votesList) {
+            voteMap.putIfAbsent(name, 0);
+            voteMap.put(name, voteMap.get(name) + 1);
+            if (voteMap.get(name) > mostVotes) {
+                mostVotes = voteMap.get(name);
+                voteLeader = name;
+            }
+        }
+        return voteLeader + " is the winner, with " + mostVotes + " votes.";
+    }
+
+    
+    public static void main (String[] args) {
+        System.out.println("hi");
     }
 }
