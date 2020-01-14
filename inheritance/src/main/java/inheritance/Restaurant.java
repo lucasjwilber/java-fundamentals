@@ -13,14 +13,17 @@ public class Restaurant {
     public Restaurant (String name, int price) {
         this.name = name;
         this.price = price;
-        this.rating = 1f;
     }
     public void addReview(int rating, String author, String body) {
-        Review review = new Review(rating, author, body);
-        this.reviews.add(review);
-        this.totalReviews++;
-        this.ratingSum += rating;
-        this.rating = (float) ratingSum / totalReviews;
+        if (rating > 5 || rating < 0) {
+            System.out.println("Please enter a rating from 0 to 5.");
+        } else {
+            Review review = new Review(rating, author, body);
+            this.reviews.add(review);
+            this.totalReviews++;
+            this.ratingSum += rating;
+            this.rating = (float) ratingSum / totalReviews;
+        }
     }
     public String toString() {
         return String.format("Name: %s, Rating: %f, Price: %d", this.name, this.rating, this.price);

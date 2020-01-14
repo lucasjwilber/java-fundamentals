@@ -14,6 +14,6 @@ public class Review {
         }
     }
     public String toString() {
-        return String.format("Rating: %d, Author: %s, Body: %s", this.rating, this.author, this.body);
+        return String.format("\nRating: %d, Author: %s, Body: %s", this.rating, this.author, this.body);
     }
 }

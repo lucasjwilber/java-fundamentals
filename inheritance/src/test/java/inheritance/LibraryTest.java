@@ -59,4 +59,28 @@ public class LibraryTest {
         restaurant.addReview(3, "Gordon Ramsay", "Absolute garbage, ew");
         assertTrue(restaurant.rating == 2);
     }
+
+    @Test public void checkThatRatingsMustBe0to5() {
+        Restaurant restaurant = new Restaurant("Pizza Hut", 2);
+        System.out.println(restaurant.rating);
+        System.out.println(restaurant.totalReviews);
+        System.out.println(restaurant.ratingSum);
+        restaurant.addReview(-1, "Gordon Ramsay", "Absolute garbage, ew");
+        System.out.println(restaurant.rating);
+        System.out.println(restaurant.totalReviews);
+        System.out.println(restaurant.ratingSum);
+        restaurant.addReview(6, "Papa John", "Bold, innovative and refreshing");
+        System.out.println(restaurant.rating);
+        System.out.println(restaurant.totalReviews);
+        System.out.println(restaurant.ratingSum);
+        restaurant.addReview(2, "Papa John", "Bold, innovative and refreshing");
+        System.out.println(restaurant.rating);
+        System.out.println(restaurant.totalReviews);
+        System.out.println(restaurant.ratingSum);
+        restaurant.addReview(4, "Papa John", "Bold, innovative and refreshing");
+        System.out.println(restaurant.rating);
+        System.out.println(restaurant.totalReviews);
+        System.out.println(restaurant.ratingSum);
+//        assertTrue(restaurant.rating == 0);
+    }
 }
