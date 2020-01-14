@@ -25,8 +25,38 @@ public class LibraryTest {
     }
 
     @Test public void checkReviewConstructorFunctionality() {
-        Review review = new Review("Absolute garbage, ew", "Gordon Ramsay", 0);
+        Review review = new Review(0, "Gordon Ramsay", "Absolute garbage, ew");
         assertEquals(review.body, "Absolute garbage, ew");
         assertEquals(review.rating, 0);
+    }
+
+    @Test public void checkReviewToString() {
+        Review review = new Review(0, "Gordon Ramsay", "Absolute garbage, ew");
+        assertTrue(review.toString().contains("Author: Gordon Ramsay"));
+        assertTrue(review.toString().contains("Rating: 0"));
+    }
+
+    @Test public void checkReviewsListInstantiation() {
+        Restaurant restaurant = new Restaurant("Pizza Hut", 2);
+        restaurant.reviews.add(new Review(0, "Gordon Ramsay", "Absolute garbage, ew"));
+        assertTrue(restaurant.reviews.toString().contains("Rating: 0"));
+    }
+
+    @Test public void checkAddReviewMethod() {
+        Restaurant restaurant = new Restaurant("Pizza Hut", 2);
+        restaurant.addReview(0, "Gordon Ramsay", "Absolute garbage, ew");
+        restaurant.addReview(3, "Papa John", "Bold, innovative and refreshing");
+        assertTrue(restaurant.reviews.toString().contains("Absolute garbage"));
+        assertTrue(restaurant.reviews.toString().contains("Rating: 3"));
+    }
+
+    @Test public void checkRatingIsAverageOfAllRatings() {
+        Restaurant restaurant = new Restaurant("Pizza Hut", 2);
+        restaurant.addReview(0, "Gordon Ramsay", "Absolute garbage, ew");
+        restaurant.addReview(3, "Papa John", "Bold, innovative and refreshing");
+        //IntelliJ suggests I use assertEquals but then tells me that test is deprecated when used to compare floats, and fails.
+        assertTrue(restaurant.rating == 1.5);
+        restaurant.addReview(3, "Gordon Ramsay", "Absolute garbage, ew");
+        assertTrue(restaurant.rating == 2);
     }
 }
