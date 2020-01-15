@@ -81,9 +81,10 @@ public class Library {
         int highestTemp = sortedWeather.get(sortedWeather.size() - 1);
 
         StringBuilder result = new StringBuilder();
+        result.append(String.format("High: %d\nLow: %d", highestTemp, lowestTemp));
         for (int i = lowestTemp; i < highestTemp; i++) {
             if (!sortedWeather.contains(i)) {
-                result.append(String.format("Never saw temperature %d.\n", i));
+                result.append(String.format("\nNever saw temperature %d.", i));
             }
         }
         return result.toString();
@@ -106,7 +107,7 @@ public class Library {
         return voteLeader + " is the winner, with " + mostVotes + " votes.";
     }
 
-    
+
     public static void main (String[] args) {
         System.out.println("hi");
     }

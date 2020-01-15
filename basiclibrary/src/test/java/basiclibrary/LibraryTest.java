@@ -11,7 +11,7 @@ import java.util.List;
 
 public class LibraryTest {
 
-    public static boolean checkRollRange() {
+    public static boolean checkRollRangeOneToSix() {
         Library classUnderTest = new Library();
         int[] rollArr = classUnderTest.roll(50);
         boolean numbersAreAllInRange = true;
@@ -24,7 +24,7 @@ public class LibraryTest {
 
     @Test public void testRoll() {
         //Happy path:
-        assertTrue("roll() values should only be 1-6", checkRollRange());
+        assertTrue("roll() values should only be 1-6", checkRollRangeOneToSix());
 
         //Expected failure:
         assertFalse("roll() should return an array", (!Library.roll(20).getClass().isArray()));

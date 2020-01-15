@@ -3,7 +3,11 @@
  */
 package inheritance;
 
+import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 public class LibraryTest {
@@ -62,25 +66,68 @@ public class LibraryTest {
 
     @Test public void checkThatRatingsMustBe0to5() {
         Restaurant restaurant = new Restaurant("Pizza Hut", 2);
-        System.out.println(restaurant.rating);
-        System.out.println(restaurant.totalReviews);
-        System.out.println(restaurant.ratingSum);
         restaurant.addReview(-1, "Gordon Ramsay", "Absolute garbage, ew");
-        System.out.println(restaurant.rating);
-        System.out.println(restaurant.totalReviews);
-        System.out.println(restaurant.ratingSum);
+        assertTrue(restaurant.rating == 0);
         restaurant.addReview(6, "Papa John", "Bold, innovative and refreshing");
-        System.out.println(restaurant.rating);
-        System.out.println(restaurant.totalReviews);
-        System.out.println(restaurant.ratingSum);
+        assertTrue(restaurant.rating == 0);
         restaurant.addReview(2, "Papa John", "Bold, innovative and refreshing");
-        System.out.println(restaurant.rating);
-        System.out.println(restaurant.totalReviews);
-        System.out.println(restaurant.ratingSum);
+        assertTrue(restaurant.rating == 2);
         restaurant.addReview(4, "Papa John", "Bold, innovative and refreshing");
-        System.out.println(restaurant.rating);
-        System.out.println(restaurant.totalReviews);
-        System.out.println(restaurant.ratingSum);
-//        assertTrue(restaurant.rating == 0);
+        assertTrue(restaurant.rating == 3);
+    }
+
+    @Before public void shopSetUp() {
+        Shop shop = new Shop("Safeway", 2);
+    }
+
+
+    @Test public void canInstantiateAShop() {
+        Shop shop = new Shop("Safeway", 2);
+        assertEquals(2, shop.price);
+    }
+    @Test public void shopToString() {
+        Shop shop = new Shop("Safeway", 2);
+        assertTrue(shop.toString().contains("Safeway"));
+    }
+    @Test public void shopCanGetReviews() {
+        Shop shop = new Shop("Safeway", 2);
+        shop.addReview(3, "Sam", "Decent place to shop.");
+        assertTrue(shop.reviews.toString().contains("Author: Sam"));
+    }
+
+    @Test public void canInstantiateATheater() {
+        Theater theater = new Theater("Cool Theater", 3);
+        assertEquals(3, theater.price);
+    }
+    @Test public void theaterToString() {
+        Theater theater = new Theater("Cool Theater", 3);
+        assertTrue(theater.toString().contains("Cool Theater"));
+    }
+    @Test public void theaterCanGetReviewsWithoutMovieName() {
+        Theater theater = new Theater("Regal", 2);
+        theater.addReview(5, "Tom", "wow it's so nice");
+        assertTrue(theater.reviews.toString().contains("wow it's so nice"));
+    }
+    @Test public void theaterReviewsCanHaveMovieName() {
+        Theater theater = new Theater("Regal", 2);
+        theater.addReview(5, "Tom", "wow it's so nice", "Star Wars 99");
+        assertTrue(theater.reviews.toString().contains("Movie: Star Wars"));
+    }
+    @Test public void theaterHasListOfMovies() {
+        Theater theater = new Theater("Regal", 2);
+        theater.addMovie("Bambi");
+        assertTrue(theater.movies.contains("Bambi"));
+    }
+    @Test public void canRemoveMoviesFromTheaterMoviesList() {
+        Theater theater = new Theater("Regal", 2);
+        theater.addMovie("Bambi");
+        theater.removeMovie("Bambi");
+        assertFalse(theater.movies.contains("Bambi"));
+    }
+    @Test public void ratingsUpdateOnTheaters() {
+        Theater theater = new Theater("Regal", 2);
+        theater.addReview(2, "Someone", "meh");
+        theater.addReview(5, "Someone else", "wOaH");
+        assertTrue(3.5f == theater.rating);
     }
 }
