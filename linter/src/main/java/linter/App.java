@@ -42,12 +42,14 @@ public class App {
                 System.out.println("file not found");
             } catch (IOException e) {
                 e.printStackTrace();
+                System.out.println("IO error");
             }
         }
-        return "error";
+        return "error scanning file";
     }
 
     public static void main(String[] args) {
-        System.out.println(linter("../linter/resources/gates.js"));
+//        System.out.println(linter("../linter/resources/gates.js"));
+        System.out.println(linter("/../../../../../../../Desktop/marioBitmap.bmp"));
     }
 }
